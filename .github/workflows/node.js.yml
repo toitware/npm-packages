@@ -58,5 +58,5 @@ jobs:
 
     - name: Publish new version if versions differ
       if: ${{ matrix.package != env.PACKAGE_VERSION }}
-      run: yarn publish --access restriced
+      run: yarn publish --access restricted
       working-directory: packages/${{ matrix.package }}
