@@ -1,8 +1,8 @@
 import { StylesProvider } from "@material-ui/core";
-import { GenerateId } from "jss";
 import React, { ReactNode } from "react";
+import { GenerateId } from "jss";
 
-const generateClassName: GenerateId = (rule, styleSheet) =>
+export const generateClassName: GenerateId = (rule, styleSheet) =>
   `${styleSheet?.options?.classNamePrefix ?? "noprefix"}-${rule.key}`;
 
 /**

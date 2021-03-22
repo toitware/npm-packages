@@ -1,7 +1,7 @@
 {
-  "name": "@toitware/testing-utils",
-  "version": "0.0.5",
-  "description": "A collection of utils used in testing.",
+  "name": "@toitware/template",
+  "version": "0.0.1",
+  "description": "Describe the project",
   "license": "UNLICENSED",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
@@ -13,6 +13,7 @@
     "build": "tsc -b tsconfig.build.json",
     "clean": "tsc -b tsconfig.build.json --clean",
     "lint": "eslint . --ext .js,.ts --ignore-path='../../.eslintignore'",
+    "test": "jest --coverage",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "files": [
@@ -20,18 +21,6 @@
     "README.md"
   ],
   "dependencies": {},
-  "peerDependencies": {
-    "@material-ui/core": "^4.0.0",
-    "jss": "^10.0.0",
-    "react": "^17.0.0"
-  },
-  "devDependencies": {
-    "@material-ui/core": "^4.0.0",
-    "@testing-library/jest-dom": "^5.11.9",
-    "@testing-library/react": "^11.2.5",
-    "@types/react-dom": "^17.0.2",
-    "jss": "^10.0.0",
-    "react": "^17.0.0",
-    "react-dom": "^17.0.1"
-  }
+  "peerDependencies": {},
+  "devDependencies": {}
 }
