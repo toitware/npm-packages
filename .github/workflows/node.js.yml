@@ -26,6 +26,8 @@ jobs:
   build-and-publish:
     runs-on: ubuntu-latest
 
+    needs: [ test ]
+
     strategy:
       matrix:
         package: [testing-utils]
@@ -49,5 +51,8 @@ jobs:
       uses: nyaa8/package-version@v1
       with:
         path: packages/${{ matrix.package }}/package.json
-    - run: echo ${{ steps.registry-version.outputs.current-version}}
-    - run: echo ${{ env.PACKAGE_VERSION }}
+    # This logic can and probably should be improved, but for now it's fine.
+    - name: Publish new version if versions differ
+      if: matrix.package != env.PACKAGE_VERSION
+      run: yarn publish --access restriced
+      working-directory: packages/${{ matrix.package }}

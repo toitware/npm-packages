@@ -2,6 +2,10 @@
 
 exports[`renders correctly 1`] = `
 <div>
-  Content
+  <h1
+    class="makeStyles-test"
+  >
+    Content
+  </h1>
 </div>
 `;

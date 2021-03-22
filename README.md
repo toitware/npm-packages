@@ -60,6 +60,16 @@ or if you want to test only a specific package:
 yarn test --projects packages/testing-utils
 ```
 
+### Snapshots
+
+React elements are tested with Snapshots. To update a snapshot, use:
+
+```sh
+yarn test -u
+```
+
+Make sure the new snapshot is correct before checking it in!
+
 ## Publish a new version
 
 Publish a new version by increasing the version in your `package.json` and merge
