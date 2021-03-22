@@ -4,7 +4,8 @@
   "description": "Describe the project",
   "license": "UNLICENSED",
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
+    "registry": "https://npm.pkg.github.com/",
+    "cache": "~/.npm"
   },
   "repository": "https://github.com/toitware/npm-packages",
   "main": "dist/index.js",

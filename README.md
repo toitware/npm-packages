@@ -2,6 +2,11 @@
 
 This repository is the home of all private toit npm packages.
 
+When a new commit is made in `main`, all packages are tested and built, and if a
+`package.json` has a newer version than what is in our
+[registry](https://github.com/orgs/toitware/packages), then it will be published
+there.
+
 ## Authenticate with GitHub registry
 
 In order to be able to install packages from this repository on your machine,
@@ -75,3 +80,8 @@ Make sure the new snapshot is correct before checking it in!
 Publish a new version by increasing the version in your `package.json` and merge
 it into master (through a PR).
 
+## Notes
+
+- I had to add a `cache` property to the `package.json` config files in the
+  individual packages, because for the publish action on GitHub failed
+  otherwise. See: https://stackoverflow.com/questions/66694947/npm-publish-fails-with-the-path-argument-must-be-of-type-string-received-und
