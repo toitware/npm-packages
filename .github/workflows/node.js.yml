@@ -50,3 +50,4 @@ jobs:
         registry: https://npm.pkg.github.com/
         access: restricted
         check-version: true
+        tag: latest
