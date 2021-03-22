@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.0.6
+
+- Better tests
+
 ## 0.0.5
 
 - Properly transpile jsx files.
