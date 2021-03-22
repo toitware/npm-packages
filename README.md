@@ -6,7 +6,7 @@ This repository is the home of all private toit npm packages.
 
 In order to be able to install packages from this repository on your machine,
 you need to [authenticate with the GitHub
-registry]((https://docs.github.com/en/packages/guides/configuring-npm-for-use-with-github-packages#authenticating-to-github-packages)).
+registry](https://docs.github.com/en/packages/guides/configuring-npm-for-use-with-github-packages#authenticating-to-github-packages).
 
 Here's a short summary of what you need to do:
 
