@@ -43,21 +43,10 @@ jobs:
     - run: yarn build
       working-directory: packages/${{ matrix.package }}
 
-    # Ideally all of the following code is handled by a GitHub actions, but
-    # unfortunately it doesn't support subdirectories yet:
-    # https://github.com/JS-DevTools/npm-publish/issues/34
-    - run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> ~/.npmrc
-    - name: Get current version in registry
-      uses: martinbeentjes/npm-get-version-action@v1.1.0
-      id: registry-version
+    - uses: JS-DevTools/npm-publish@v1
       with:
-        path: packages/${{ matrix.package }}/
-    - name: Get current version in package.json
-      uses: nyaa8/package-version@v1
-      with:
-        path: packages/${{ matrix.package }}/package.json
-    # This logic can and probably should be improved, but for now it's fine.
-    - name: Publish new version if versions differ
-      if: ${{ matrix.package != env.PACKAGE_VERSION }}
-      run: yarn publish --access restriced
-      working-directory: packages/${{ matrix.package }}
+        package: packages/${{ matrix.package }}/package.json
+        token: ${{ secrets.GITHUB_TOKEN }}
+        access: restriced
+        dry-run: true
+        check-version: true
