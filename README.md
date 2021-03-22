@@ -79,9 +79,3 @@ Make sure the new snapshot is correct before checking it in!
 
 Publish a new version by increasing the version in your `package.json` and merge
 it into master (through a PR).
-
-## Notes
-
-- I had to add a `cache` property to the `package.json` config files in the
-  individual packages, because for the publish action on GitHub failed
-  otherwise. See: https://stackoverflow.com/questions/66694947/npm-publish-fails-with-the-path-argument-must-be-of-type-string-received-und
