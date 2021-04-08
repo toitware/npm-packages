@@ -2,9 +2,9 @@
 
 ## 0.0.1
 
-### Features
-
-- Fill in
+- Copied the `CodeBlock` that was in the libs documentation.
+- Add a `removeExcessWhitespace` function to make it easier to work with mdx
+  files.
 
 ### Bug Fixes
 
