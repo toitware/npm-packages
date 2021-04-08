@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`properly sanitizes code 1`] = `
+<div>
+  <pre
+    aria-details="main:
+
+map ::= {
+  1234: \\"Siri\\",
+  2345: \\"John\\",
+  3456: \\"Sue\\"
+  }
+
+map.do: | id name |
+  print \\"$name has ID $id\\""
+  />
+</div>
+`;
