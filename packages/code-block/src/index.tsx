@@ -1,25 +1,45 @@
+import { makeStyles, useTheme } from "@material-ui/core";
+import clsx from "clsx";
 import React, { useMemo } from "react";
 import { UnControlled as CodeMirror } from "react-codemirror2";
 import "./toit";
 import { removeExcessWhitespace } from "./whitespace";
 
+const useStyles = makeStyles((theme) => ({
+  code: {
+    "& .CodeMirror": {
+      height: "auto",
+    },
+    "& .CodeMirror-lines": {
+      padding: theme.spacing(3),
+    },
+  },
+}));
+
 interface CodeBlockProps {
   code: string;
+  mode?: string;
   className?: string;
 }
 
-export function CodeBlock(props: CodeBlockProps): JSX.Element {
-  const codeMemo = useMemo(() => removeExcessWhitespace(props.code), [
-    props.code,
-  ]);
+export function CodeBlock({
+  code,
+  mode = "toit",
+  className,
+}: CodeBlockProps): JSX.Element {
+  const codeMemo = useMemo(() => removeExcessWhitespace(code), [code]);
+  const classes = useStyles();
+  const theme = useTheme();
 
   return (
     <CodeMirror
-      className={props.className}
+      className={clsx(className, classes.code)}
       value={codeMemo}
       options={{
-        mode: "toit",
+        theme: theme.palette.type == "dark" ? "material" : "3024-day",
+        mode: mode,
         readOnly: true,
+        autoScroll: false,
         tabSize: 2,
       }}
     />

@@ -18,9 +18,10 @@
  * ```
  */
 export function removeExcessWhitespace(code: string): string {
-  // Removing any trailing whitespace. No reason for that to be there.
+  // Removing any leading and trailing whitespace. No reason for that to be
+  // there.
   const codeLines = code
-    .replace(/^(\s\n)*/, "")
+    .replace(/^(\s*\n)*/, "")
     .trimEnd()
     .split("\n");
 

@@ -9,19 +9,19 @@ test("properly sanitizes code", () => {
     <CodeBlock
       code={`
 
-        main:
+      main:
 
-        map ::= {
-          1234: "Siri",
-          2345: "John",
-          3456: "Sue"
-          }
+      map ::= {
+        1234: "Siri",
+        2345: "John",
+        3456: "Sue"
+        }
 
-        map.do: | id name |
-          print "$name has ID $id"
+      map.do: | id name |
+        print "$name has ID $id"
 
-    
-      `}
+  
+    `}
     />
   );
   expect(result.container).toMatchSnapshot();

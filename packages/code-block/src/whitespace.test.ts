@@ -25,13 +25,19 @@ test("works with empty strings", () => {
 });
 
 test("removes leading and trailing newlines", () => {
-  const input = `
+  let input = `
 
 foo
 
   
 `;
 
+  expect(removeExcessWhitespace(input)).toEqual("foo");
+  input = `
+foo
+
+  
+`;
   expect(removeExcessWhitespace(input)).toEqual("foo");
 });
 
