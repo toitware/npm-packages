@@ -5,7 +5,7 @@ type UncontrollerProps = {
 };
 
 export const UnControlled = ({ value }: UncontrollerProps): JSX.Element => (
-  // Usiong aria-details here so now formatting is done on the value.
+  // Usiong aria-details here so no formatting is done on the value.
   <pre aria-details={value} />
 );
 
