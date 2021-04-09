@@ -12,4 +12,11 @@ module.exports = (packageName) => ({
       tsconfig: `<rootDir>/packages/${packageName}/tsconfig.json`,
     },
   },
+
+  collectCoverageFrom: [
+    "**/*.{ts,tsx}",
+    "!**/node_modules/**",
+    "!**/dist/**",
+    "!**/vendor/**",
+  ],
 });

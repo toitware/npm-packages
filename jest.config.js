@@ -19,4 +19,11 @@ module.exports = {
     __PATH_PREFIX__: ``,
   },
   // setupFiles: [`<rootDir>/loadershim.js`],
+
+  collectCoverageFrom: [
+    "**/*.{ts,tsx}",
+    "!**/node_modules/**",
+    "!**/dist/**",
+    "!**/vendor/**",
+  ],
 };
