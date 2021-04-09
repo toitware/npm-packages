@@ -52,6 +52,8 @@ jobs:
     - run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> ~/.npmrc
     - uses: flood-io/is-published-on-npm@v1
       id: is-published
+      with:
+        dir: packages/${{ matrix.package }}
 
     - name: Publish new version if versions differ
       if: ${{ steps.is-published.outputs.published == 'false' }}
