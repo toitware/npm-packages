@@ -50,20 +50,10 @@ jobs:
     # Ideally all of the following code is handled by a GitHub action, but
     # unfortunately the npm-publish action has issues when tagging the release.
     - run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> ~/.npmrc
-    - name: Get current version in registry
-      uses: martinbeentjes/npm-get-version-action@v1.1.0
-      id: registry-version
-      with:
-        path: packages/${{ matrix.package }}/
-    - name: Get current version in package.json
-      uses: nyaa8/package-version@v1
-      with:
-        path: packages/${{ matrix.package }}/package.json
+    - uses: flood-io/is-published-on-npm@v1
+      id: is-published
 
-
-    - run: echo ${{ steps.registry-version.outputs.current-version }}
-    - run: echo ${{ env.PACKAGE_VERSION }}
     - name: Publish new version if versions differ
-      if: ${{ steps.registry-version.outputs.current-version != env.PACKAGE_VERSION }}
+      if: ${{ steps.is-published.outputs.published == 'false' }}
       run: yarn publish --access restricted
       working-directory: packages/${{ matrix.package }}
