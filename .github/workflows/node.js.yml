@@ -60,6 +60,9 @@ jobs:
       with:
         path: packages/${{ matrix.package }}/package.json
 
+
+    - run: echo ${{ steps.registry-version.outputs.current-version }}
+    - run: echo ${{ env.PACKAGE_VERSION }}
     - name: Publish new version if versions differ
       if: ${{ steps.registry-version.outputs.current-version != env.PACKAGE_VERSION }}
       run: yarn publish --access restricted
