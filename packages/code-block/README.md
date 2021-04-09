@@ -40,3 +40,16 @@ CodeBlock is smart enough to remove unnecessary leading whitespace, so don't
 worry about that.
 
 CodeBlock will also remove leading and trailing empty lines.
+
+### Modes
+
+By default CodeBlock ships with only the `toit` and `shell` mode (a mode is a
+language that codemirror can display).
+
+If your project uses other languages, you need to import the modes yourself:
+
+```js
+import "codemirror/mode/htmlmixed/htmlmixed";
+import "codemirror/mode/yaml/yaml";
+import "codemirror/mode/javascript/javascript";
+```

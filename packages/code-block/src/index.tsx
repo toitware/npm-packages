@@ -1,5 +1,6 @@
 import { makeStyles, useTheme } from "@material-ui/core";
 import clsx from "clsx";
+import "codemirror/mode/shell/shell";
 import React, { useMemo } from "react";
 import { UnControlled as CodeMirror } from "react-codemirror2";
 import "./toit";
@@ -18,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
 
 interface CodeBlockProps {
   code: string;
-  mode?: string;
+  mode?: "toit" | "shell" | "htmlmixed" | "yaml" | string;
   className?: string;
 }
 
