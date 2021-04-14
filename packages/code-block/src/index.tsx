@@ -1,9 +1,7 @@
 import { makeStyles, useTheme } from "@material-ui/core";
 import clsx from "clsx";
-import "codemirror/mode/shell/shell";
 import React, { useMemo } from "react";
-import { UnControlled as CodeMirror } from "react-codemirror2";
-import "./toit";
+import { useCodeMirror } from "use-codemirror";
 import { removeExcessWhitespace } from "./whitespace";
 
 const useStyles = makeStyles((theme) => ({
@@ -14,6 +12,11 @@ const useStyles = makeStyles((theme) => ({
     "& .CodeMirror-lines": {
       padding: theme.spacing(3),
     },
+  },
+  loadingCode: {
+    position: "relative",
+    display: "block",
+    padding: theme.spacing(3),
   },
 }));
 
@@ -32,18 +35,37 @@ export function CodeBlock({
   const classes = useStyles();
   const theme = useTheme();
 
+  const codeMirrorTheme =
+    theme.palette.type == "dark" ? "material" : "3024-day";
+
+  const codeMirror = useCodeMirror({
+    value: codeMemo,
+    importCodeMirrorAddons: () => {
+      return Promise.all([
+        import("./toit"),
+        import("codemirror/mode/shell/shell"),
+        import("codemirror/keymap/sublime"),
+      ]);
+    },
+    config: {
+      theme: codeMirrorTheme,
+      mode: mode,
+      readOnly: true,
+      autoScroll: false,
+      scrollbarStyle: "native",
+      tabSize: 2,
+    },
+  });
+
   return (
-    <CodeMirror
-      className={clsx(className, classes.code)}
-      value={codeMemo}
-      options={{
-        theme: theme.palette.type == "dark" ? "material" : "3024-day",
-        mode: mode,
-        readOnly: true,
-        autoScroll: false,
-        tabSize: 2,
-      }}
-    />
+    <div className={clsx(className, classes.code)}>
+      <pre
+        className={clsx(codeMirrorTheme, classes.loadingCode)}
+        ref={codeMirror.ref}
+      >
+        {codeMemo}
+      </pre>
+    </div>
   );
 }
 

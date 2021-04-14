@@ -2,17 +2,23 @@
 
 exports[`properly sanitizes code 1`] = `
 <div>
-  <pre
-    aria-details="main:
+  <div
+    class="makeStyles-code"
+  >
+    <pre
+      class="3024-day makeStyles-loadingCode"
+    >
+      main:
 
 map ::= {
-  1234: \\"Siri\\",
-  2345: \\"John\\",
-  3456: \\"Sue\\"
+  1234: "Siri",
+  2345: "John",
+  3456: "Sue"
   }
 
 map.do: | id name |
-  print \\"$name has ID $id\\""
-  />
+  print "$name has ID $id"
+    </pre>
+  </div>
 </div>
 `;
