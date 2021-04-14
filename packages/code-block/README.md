@@ -49,7 +49,9 @@ language that codemirror can display).
 If your project uses other languages, you need to import the modes yourself:
 
 ```js
-import "codemirror/mode/htmlmixed/htmlmixed";
-import "codemirror/mode/yaml/yaml";
-import "codemirror/mode/javascript/javascript";
+if (typeof navigator !== "undefined") {
+  import "codemirror/mode/htmlmixed/htmlmixed";
+  import "codemirror/mode/yaml/yaml";
+  import "codemirror/mode/javascript/javascript";
+}
 ```
