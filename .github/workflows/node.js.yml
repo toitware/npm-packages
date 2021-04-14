@@ -8,54 +8,53 @@ env:
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   test:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ env.NODE_VERSION }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ env.NODE_VERSION }}
-    - run: yarn install
-    - run: yarn test
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - run: yarn install
+      - run: yarn test
 
   build-and-publish:
     runs-on: ubuntu-latest
 
-    needs: [ test ]
+    needs: [test]
     if: github.ref == 'refs/heads/main'
 
     strategy:
       matrix:
-        package: [testing-utils, code-block]
+        package: [testing-utils, code-block, cookie-consent]
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: 15.x
-    - run: yarn install
-      working-directory: packages/${{ matrix.package }}
-    - run: yarn build
-      working-directory: packages/${{ matrix.package }}
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: 15.x
+      - run: yarn install
+        working-directory: packages/${{ matrix.package }}
+      - run: yarn build
+        working-directory: packages/${{ matrix.package }}
 
-    # Ideally all of the following code is handled by a GitHub action, but
-    # unfortunately the npm-publish action has issues when tagging the release.
-    - run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> ~/.npmrc
-    - uses: flood-io/is-published-on-npm@v1
-      id: is-published
-      with:
-        dir: packages/${{ matrix.package }}
+      # Ideally all of the following code is handled by a GitHub action, but
+      # unfortunately the npm-publish action has issues when tagging the release.
+      - run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> ~/.npmrc
+      - uses: flood-io/is-published-on-npm@v1
+        id: is-published
+        with:
+          dir: packages/${{ matrix.package }}
 
-    - name: Publish new version if versions differ
-      if: ${{ steps.is-published.outputs.published == 'false' }}
-      run: yarn publish --access restricted
-      working-directory: packages/${{ matrix.package }}
+      - name: Publish new version if versions differ
+        if: ${{ steps.is-published.outputs.published == 'false' }}
+        run: yarn publish --access restricted
+        working-directory: packages/${{ matrix.package }}
