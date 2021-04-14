@@ -1,5 +1,4 @@
 import { render } from "@testing-library/react";
-import { StableClassNames } from "@toitware/testing-utils";
 import React from "react";
 import { CodeBlock } from ".";
 
@@ -7,9 +6,8 @@ jest.mock("use-codemirror");
 
 test("properly sanitizes code", () => {
   const result = render(
-    <StableClassNames>
-      <CodeBlock
-        code={`
+    <CodeBlock
+      code={`
 
       main:
 
@@ -24,8 +22,7 @@ test("properly sanitizes code", () => {
 
   
     `}
-      />
-    </StableClassNames>
+    />
   );
   expect(result.container).toMatchSnapshot();
 });
