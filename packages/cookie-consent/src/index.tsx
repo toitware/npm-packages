@@ -2,7 +2,7 @@ import {
   Button,
   Card,
   IconButton,
-  Link as LinkCore,
+  Link,
   makeStyles,
   Theme,
   Typography,
@@ -50,9 +50,15 @@ interface CookieProps {
   segmentKey: string;
   show: boolean;
   callback: (show: boolean) => void;
+  customCookiePolicyLinkComponent?: JSX.Element;
 }
 
-function Cookie({ segmentKey, show, callback }: CookieProps): JSX.Element {
+export function Cookie({
+  segmentKey,
+  show,
+  callback,
+  customCookiePolicyLinkComponent,
+}: CookieProps): JSX.Element {
   const classes = useStyles();
   const [isUserConsent, setUserConsent] = useState<boolean | null>(null);
   const [isPageLoaded, setPageLoaded] = useState<boolean>(false);
@@ -208,15 +214,26 @@ function Cookie({ segmentKey, show, callback }: CookieProps): JSX.Element {
             <div className={classes.cookieConsentTextContent}>
               <Typography>
                 We use cookies to collect data to improve your user experience.
-                By using our website, you&apos;re agreeing to our . You can
-                change your{" "}
-                <LinkCore
+                By using our website, you&apos;re agreeing to our{" "}
+                {customCookiePolicyLinkComponent ? (
+                  customCookiePolicyLinkComponent
+                ) : (
+                  <Link
+                    href="https://toit.io/cookies-policy"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    cookie policy
+                  </Link>
+                )}{" "}
+                . You can change your{" "}
+                <Link
                   href="javascript:undefined;"
                   onClick={() => setManageCookies(true)}
                   className={classes.link}
                 >
                   preferences
-                </LinkCore>{" "}
+                </Link>{" "}
                 at any time.
               </Typography>
             </div>
