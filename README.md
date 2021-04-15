@@ -53,6 +53,16 @@ will build it by itself, and take care of testing and publishing.
 
 ## Testing
 
+### Using it in your project
+
+Normally, you'll develop a package because you want to use it in another
+project. The easiest way to develop them side by side, is to use [yarn
+link](https://classic.yarnpkg.com/en/docs/cli/link/) for that. Just make sure
+you're building your package, and consider using `yarn build --watch` so it
+stays up to date.
+
+### Running tests
+
 You can test all packages from root with:
 
 ```sh

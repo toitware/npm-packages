@@ -2,7 +2,7 @@ import { render } from "@testing-library/react";
 import React from "react";
 import { CodeBlock } from ".";
 
-jest.mock("react-codemirror2");
+jest.mock("use-codemirror");
 
 test("properly sanitizes code", () => {
   const result = render(
