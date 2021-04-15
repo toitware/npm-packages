@@ -1,4 +1,4 @@
-# `CodeBlock` react component
+# `<CodeBlock>` react component
 
 This is a wrapper around [CodeMirror](https://codemirror.net) with a "toit
 branded" theme, opinionated functionality and extensions.
@@ -11,7 +11,7 @@ displayed, so they all have a unified way of presenting code.
 First install this library and codemirror itself too.
 
 ```shell
-yarn add @toitware/code-block codemirror
+yarn add @toitware/code-block
 ```
 
 Once it's installed you need to import the CSS for codemirror and its themes.
@@ -32,11 +32,11 @@ Otherwise import it wherever you import static assets.
 ```jsx
 <CodeBlock code={`
   any lines of code
-  come here
+  go here
 `}>
 ```
 
-CodeBlock is smart enough to remove unnecessary leading whitespace, so don't
+ℹ️ CodeBlock is smart enough to remove unnecessary leading whitespace, so don't
 worry about that.
 
 CodeBlock will also remove leading and trailing empty lines.
@@ -46,12 +46,6 @@ CodeBlock will also remove leading and trailing empty lines.
 By default CodeBlock ships with only the `toit` and `shell` mode (a mode is a
 language that codemirror can display).
 
-If your project uses other languages, you need to import the modes yourself:
+~~If your project uses other languages, you need to import the modes yourself.~~
 
-```js
-if (typeof navigator !== "undefined") {
-  import "codemirror/mode/htmlmixed/htmlmixed";
-  import "codemirror/mode/yaml/yaml";
-  import "codemirror/mode/javascript/javascript";
-}
-```
+⚠️ Adding other modes is not implemented atm, if you need it right away, ping @enyo and ask nicely 😇
