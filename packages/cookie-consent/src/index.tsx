@@ -11,6 +11,7 @@ import {
 import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
 import { FiX } from "react-icons/fi";
+import { SessionStorage } from "./sessionStorage";
 
 const useStyles = makeStyles((theme: Theme) => ({
   button: {
@@ -65,14 +66,15 @@ export function CookieConsent({
   const classes = useStyles();
   const [isUserConsent, setUserConsent] = useState<boolean | null>(null);
   const [isPageLoaded, setPageLoaded] = useState<boolean>(false);
-  const [isUserSignedIn, setUserSignedIn] = useState<boolean>(false);
+  const [isUserSignedIn] = useState<boolean>(
+    Cookies.get("ToitUserID") ? true : false
+  );
   const [manageCookies, setManageCookies] = useState<boolean>(false);
   const [showCookieConsent, setShowCookiesConsent] = useState<boolean>(
     show
       ? true
       : Cookies.get("toit-cookies") === "true" ||
-        (typeof window !== "undefined" &&
-          window.sessionStorage?.getItem("disallow-cookies") === "true")
+        SessionStorage.getItem("disallow-cookies") === "true"
       ? false
       : true
   );
@@ -84,8 +86,7 @@ export function CookieConsent({
     });
     setUserConsent(true);
     setShowCookiesConsent(false);
-    window.sessionStorage.removeItem &&
-      window?.sessionStorage?.removeItem("disallow-cookies");
+    SessionStorage.removeItem("disallow-cookies");
     callback(false);
     window.location.reload();
   };
@@ -126,14 +127,13 @@ export function CookieConsent({
   };
 
   const handleDeclineCookieUI = () => {
-    window.sessionStorage.setItem &&
-      window?.sessionStorage?.setItem("disallow-cookies", "true");
+    SessionStorage.setItem("disallow-cookies", "true");
     handleDeclineCookie();
     window.location.reload();
   };
 
   const handleCookies = () => {
-    if (window?.sessionStorage.getItem("disallow-cookies") === "true") {
+    if (SessionStorage.getItem("disallow-cookies") === "true") {
       handleDeclineCookie();
     } else {
       handleAcceptCookie();
@@ -143,9 +143,6 @@ export function CookieConsent({
   useEffect(() => {
     handleCookies();
 
-    if (Cookies.get("ToitUserID")) {
-      setUserSignedIn(true);
-    }
     // Check if user has explicitly chosen to opt in or out
     if (isUserConsent) {
       handleAcceptCookieUI();
