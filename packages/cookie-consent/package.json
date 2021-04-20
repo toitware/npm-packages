@@ -1,0 +1,39 @@
+{
+  "name": "@toitware/cookie-consent",
+  "version": "0.0.1",
+  "description": "Toit cookie consent ",
+  "license": "UNLICENSED",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
+  "repository": "https://github.com/toitware/npm-packages",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -b tsconfig.build.json",
+    "clean": "tsc -b tsconfig.build.json --clean",
+    "lint": "eslint . --ext .js,.ts --ignore-path='../../.eslintignore'",
+    "test": "jest --coverage",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "dependencies": {
+    "js-cookie": "^2.2.1",
+    "react-icons": "^4.1.0"
+  },
+  "peerDependencies": {
+    "react": "^17.0.0",
+    "@material-ui/core": "^4.0.0"
+  },
+  "devDependencies": {
+    "react": "17.0.0",
+    "typescript": "^4.1.3",
+    "@material-ui/core": "^4.11.3",
+    "@types/js-cookie": "^2.2.6",
+    "@types/segment-analytics": "^0.0.33",
+    "react-icons": "^4.1.0"
+  }
+}
