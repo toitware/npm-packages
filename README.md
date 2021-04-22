@@ -38,6 +38,8 @@ to adopt them accordingly. Most importantly:
 
 And then of course your code.
 
+**⚠️ You need to publish the project manually the first time. Once it's published, GitHub Actions will [automatically publish new versions](#publish-a-new-version).**
+
 ## Building
 
 Inside the package you're working on:
