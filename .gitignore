@@ -63,3 +63,4 @@ jspm_packages/
 
 *.tsbuildinfo
 dist
+.vscode/settings.json

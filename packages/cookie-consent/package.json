@@ -1,6 +1,6 @@
 {
   "name": "@toitware/cookie-consent",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Toit cookie consent ",
   "license": "UNLICENSED",
   "publishConfig": {
@@ -20,18 +20,19 @@
     "dist",
     "README.md"
   ],
+  "resolutions": {
+    "**/react": "17.0.2",
+    "**/react-dom": "17.0.2"
+  },
   "dependencies": {
     "js-cookie": "^2.2.1",
     "react-icons": "^4.1.0"
   },
-  "peerDependencies": {
-    "react": "^17.0.0",
-    "@material-ui/core": "^4.0.0"
-  },
   "devDependencies": {
-    "react": "17.0.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "typescript": "^4.1.3",
-    "@material-ui/core": "^4.11.3",
+    "@material-ui/core": "^4.9.9",
     "@types/js-cookie": "^2.2.6",
     "@types/segment-analytics": "^0.0.33",
     "react-icons": "^4.1.0"

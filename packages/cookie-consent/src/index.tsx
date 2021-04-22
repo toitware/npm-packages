@@ -5,7 +5,6 @@ import {
   Link,
   makeStyles,
   Theme,
-  ThemeProvider,
   Typography,
 } from "@material-ui/core";
 import Cookies from "js-cookie";
@@ -53,7 +52,6 @@ interface CookieProps {
   show: boolean;
   callback: (show: boolean) => void;
   customCookiePolicyLinkComponent?: JSX.Element;
-  cookieTheme: Theme;
 }
 
 export function CookieConsent({
@@ -61,7 +59,6 @@ export function CookieConsent({
   show,
   callback,
   customCookiePolicyLinkComponent,
-  cookieTheme,
 }: CookieProps): JSX.Element {
   const classes = useStyles();
   const [isUserConsent, setUserConsent] = useState<boolean | null>(null);
@@ -153,13 +150,57 @@ export function CookieConsent({
   }, [isUserConsent, show]);
   return (
     <>
-      <ThemeProvider theme={cookieTheme}>
-        {((!isUserSignedIn &&
-          showCookieConsent &&
-          !isUserConsent &&
-          isPageLoaded &&
-          manageCookies) ||
-          show) && (
+      {((!isUserSignedIn &&
+        showCookieConsent &&
+        !isUserConsent &&
+        isPageLoaded &&
+        manageCookies) ||
+        show) && (
+        <Card className={classes.cookieConsentCard}>
+          <IconButton
+            className={classes.exitButton}
+            onClick={() => handleAcceptCookieUI()}
+          >
+            <FiX />
+          </IconButton>
+          <div className={classes.cookieConsentTextContent}>
+            <Typography variant="h3">Change your cookie setting</Typography>
+            <Typography>
+              We use cookies to register the traffic on our website. The main
+              purpose is to improve our website performance and your experience
+              of our website.{" "}
+            </Typography>
+
+            <Typography className={classes.lineSkip}>
+              Feel free to change it any time, by pressing either decline or
+              accept below.
+            </Typography>
+          </div>
+          <div className={classes.buttons}>
+            <Button
+              size="medium"
+              variant="contained"
+              className={classes.button}
+              onClick={() => handleDeclineCookieUI()}
+            >
+              Decline
+            </Button>
+            <Button
+              size="medium"
+              variant="contained"
+              className={classes.button}
+              onClick={() => handleAcceptCookieUI()}
+            >
+              Accept
+            </Button>
+          </div>
+        </Card>
+      )}
+      {!isUserSignedIn &&
+        showCookieConsent &&
+        !isUserConsent &&
+        isPageLoaded &&
+        !manageCookies && (
           <Card className={classes.cookieConsentCard}>
             <IconButton
               className={classes.exitButton}
@@ -168,80 +209,34 @@ export function CookieConsent({
               <FiX />
             </IconButton>
             <div className={classes.cookieConsentTextContent}>
-              <Typography variant="h3">Change your cookie setting</Typography>
               <Typography>
-                We use cookies to register the traffic on our website. The main
-                purpose is to improve our website performance and your
-                experience of our website.{" "}
+                We use cookies to collect data to improve your user experience.
+                By using our website, you&apos;re agreeing to our{" "}
+                {customCookiePolicyLinkComponent ? (
+                  customCookiePolicyLinkComponent
+                ) : (
+                  <Link
+                    href="https://toit.io/cookies-policy"
+                    target="_blank"
+                    rel="noopener"
+                    className={classes.link}
+                  >
+                    cookie policy
+                  </Link>
+                )}
+                . You can change your{" "}
+                <Link
+                  href="javascript:undefined;"
+                  onClick={() => setManageCookies(true)}
+                  className={classes.link}
+                >
+                  preferences
+                </Link>{" "}
+                at any time.
               </Typography>
-
-              <Typography className={classes.lineSkip}>
-                Feel free to change it any time, by pressing either decline or
-                accept below.
-              </Typography>
-            </div>
-            <div className={classes.buttons}>
-              <Button
-                size="medium"
-                variant="contained"
-                className={classes.button}
-                onClick={() => handleDeclineCookieUI()}
-              >
-                Decline
-              </Button>
-              <Button
-                size="medium"
-                variant="contained"
-                className={classes.button}
-                onClick={() => handleAcceptCookieUI()}
-              >
-                Accept
-              </Button>
             </div>
           </Card>
         )}
-        {!isUserSignedIn &&
-          showCookieConsent &&
-          !isUserConsent &&
-          isPageLoaded &&
-          !manageCookies && (
-            <Card className={classes.cookieConsentCard}>
-              <IconButton
-                className={classes.exitButton}
-                onClick={() => handleAcceptCookieUI()}
-              >
-                <FiX />
-              </IconButton>
-              <div className={classes.cookieConsentTextContent}>
-                <Typography>
-                  We use cookies to collect data to improve your user
-                  experience. By using our website, you&apos;re agreeing to our{" "}
-                  {customCookiePolicyLinkComponent ? (
-                    customCookiePolicyLinkComponent
-                  ) : (
-                    <Link
-                      href="https://toit.io/cookies-policy"
-                      target="_blank"
-                      rel="noopener"
-                      className={classes.link}
-                    >
-                      cookie policy
-                    </Link>
-                  )}
-                  . You can change your{" "}
-                  <Link
-                    href="javascript:undefined;"
-                    onClick={() => setManageCookies(true)}
-                    className={classes.link}
-                  >
-                    preferences
-                  </Link>{" "}
-                  at any time.
-                </Typography>
-              </div>
-            </Card>
-          )}
-      </ThemeProvider>
     </>
   );
 }
