@@ -89,7 +89,7 @@ export function CookieConsent({
   };
 
   const handleAcceptCookie = () => {
-    if (analytics && !loadedAnalytics) {
+    if ('analytics' in window && !loadedAnalytics) {
       // Setup segment
       loadedAnalytics = true;
       let segmentAPIKey = segmentKey;

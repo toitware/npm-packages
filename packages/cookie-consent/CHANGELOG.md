@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.0.4
+
+### Bug fixes
+
+- use "'analytics' in window" to check if analytics exists.
+
 ## 0.0.3
 
 - Removed cookieTheme prop
