@@ -35,8 +35,7 @@ export function CodeBlock({
   const classes = useStyles();
   const theme = useTheme();
 
-  const codeMirrorTheme =
-    theme.palette.type == "dark" ? "material" : "3024-day";
+  const codeMirrorTheme = theme.palette.type == "dark" ? "material" : "default";
 
   const codeMirror = useCodeMirror({
     value: codeMemo,
