@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.2
+
+- Add toit syntax coloring support for slice syntax and byte array syntax.
+- Fix syntax coloring of escapes in string literals.
+
 ## 0.1.1
 
 - Switch to the default theme to prevent legibility issues. We'll probably want
