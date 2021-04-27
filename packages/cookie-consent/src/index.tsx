@@ -50,14 +50,14 @@ let loadedAnalytics = false;
 interface CookieProps {
   segmentKey: string;
   show: boolean;
-  callback: (show: boolean) => void;
+  changeConsent: boolean;
   customCookiePolicyLinkComponent?: JSX.Element;
 }
 
 export function CookieConsent({
   segmentKey,
   show,
-  callback,
+  changeConsent,
   customCookiePolicyLinkComponent,
 }: CookieProps): JSX.Element {
   const classes = useStyles();
@@ -67,11 +67,12 @@ export function CookieConsent({
     Cookies.get("ToitUserID") ? true : false
   );
   const [manageCookies, setManageCookies] = useState<boolean>(false);
-  const [showCookieConsent, setShowCookiesConsent] = useState<boolean>(
-    show
-      ? true
-      : Cookies.get("toit-cookies") === "true" ||
-        SessionStorage.getItem("disallow-cookies") === "true"
+  const [
+    userPreferenceShowCookieConsent,
+    setUserPreferenceShowCookieConsent,
+  ] = useState<boolean>(
+    Cookies.get("toit-cookies") === "true" ||
+      SessionStorage.getItem("disallow-cookies") === "true"
       ? false
       : true
   );
@@ -82,14 +83,13 @@ export function CookieConsent({
       expires: new Date(new Date().setFullYear(new Date().getFullYear() + 1)),
     });
     setUserConsent(true);
-    setShowCookiesConsent(false);
+    setUserPreferenceShowCookieConsent(false);
     SessionStorage.removeItem("disallow-cookies");
-    callback(false);
     window.location.reload();
   };
 
   const handleAcceptCookie = () => {
-    if ('analytics' in window && !loadedAnalytics) {
+    if ("analytics" in window && !loadedAnalytics) {
       // Setup segment
       loadedAnalytics = true;
       let segmentAPIKey = segmentKey;
@@ -120,7 +120,7 @@ export function CookieConsent({
       Cookies.remove("toit-cookies", { path: "/" });
     }
     setUserConsent(false);
-    setShowCookiesConsent(false);
+    setUserPreferenceShowCookieConsent(false);
   };
 
   const handleDeclineCookieUI = () => {
@@ -147,15 +147,14 @@ export function CookieConsent({
       handleDeclineCookie();
     }
     setPageLoaded(true);
-  }, [isUserConsent, show]);
-  return (
-    <>
-      {((!isUserSignedIn &&
-        showCookieConsent &&
-        !isUserConsent &&
-        isPageLoaded &&
-        manageCookies) ||
-        show) && (
+  }, [isUserConsent, show, changeConsent]);
+  if (
+    show &&
+    ((isPageLoaded && userPreferenceShowCookieConsent && !isUserSignedIn) ||
+      changeConsent)
+  ) {
+    if (manageCookies) {
+      return (
         <Card className={classes.cookieConsentCard}>
           <IconButton
             className={classes.exitButton}
@@ -195,50 +194,48 @@ export function CookieConsent({
             </Button>
           </div>
         </Card>
-      )}
-      {!isUserSignedIn &&
-        showCookieConsent &&
-        !isUserConsent &&
-        isPageLoaded &&
-        !manageCookies && (
-          <Card className={classes.cookieConsentCard}>
-            <IconButton
-              className={classes.exitButton}
-              onClick={() => handleAcceptCookieUI()}
-            >
-              <FiX />
-            </IconButton>
-            <div className={classes.cookieConsentTextContent}>
-              <Typography>
-                We use cookies to collect data to improve your user experience.
-                By using our website, you&apos;re agreeing to our{" "}
-                {customCookiePolicyLinkComponent ? (
-                  customCookiePolicyLinkComponent
-                ) : (
-                  <Link
-                    href="https://toit.io/cookies-policy"
-                    target="_blank"
-                    rel="noopener"
-                    className={classes.link}
-                  >
-                    cookie policy
-                  </Link>
-                )}
-                . You can change your{" "}
+      );
+    } else {
+      return (
+        <Card className={classes.cookieConsentCard}>
+          <IconButton
+            className={classes.exitButton}
+            onClick={() => handleAcceptCookieUI()}
+          >
+            <FiX />
+          </IconButton>
+          <div className={classes.cookieConsentTextContent}>
+            <Typography>
+              We use cookies to collect data to improve your user experience. By
+              using our website, you&apos;re agreeing to our{" "}
+              {customCookiePolicyLinkComponent ? (
+                customCookiePolicyLinkComponent
+              ) : (
                 <Link
-                  href="javascript:undefined;"
-                  onClick={() => setManageCookies(true)}
+                  href="https://toit.io/cookies-policy"
+                  target="_blank"
+                  rel="noopener"
                   className={classes.link}
                 >
-                  preferences
-                </Link>{" "}
-                at any time.
-              </Typography>
-            </div>
-          </Card>
-        )}
-    </>
-  );
+                  cookie policy
+                </Link>
+              )}
+              . You can change your{" "}
+              <Link
+                href="javascript:undefined;"
+                onClick={() => setManageCookies(true)}
+                className={classes.link}
+              >
+                preferences
+              </Link>{" "}
+              at any time.
+            </Typography>
+          </div>
+        </Card>
+      );
+    }
+  }
+  return <></>;
 }
 
 export default CookieConsent;
