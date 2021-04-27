@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.0
+
+### Breaking changes
+
+To make it work with version 0.1.0. Remove the callback and add a changeConsent (boolean). 'Show' is the master switch and it will hide the consent no matter what happens. 'changeConsent' can be changed from the app, where you are using <CookieConsent> and it will show the cookie consent to let the user change consent.
+
 ## 0.0.4
 
 ### Bug fixes
