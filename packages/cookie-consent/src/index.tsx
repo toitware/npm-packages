@@ -12,6 +12,12 @@ import React, { useEffect, useState } from "react";
 import { FiX } from "react-icons/fi";
 import { SessionStorage } from "./sessionStorage";
 
+declare global {
+  interface Window {
+    analytics: SegmentAnalytics.AnalyticsJS;
+  }
+}
+
 const useStyles = makeStyles((theme: Theme) => ({
   button: {
     margin: theme.spacing(2),
@@ -52,6 +58,7 @@ interface CookieProps {
   show: boolean;
   changeConsent: boolean;
   customCookiePolicyLinkComponent?: JSX.Element;
+  onAnalyticsReady?: (analytics: SegmentAnalytics.AnalyticsJS) => void;
 }
 
 export function CookieConsent({
@@ -59,6 +66,7 @@ export function CookieConsent({
   show,
   changeConsent,
   customCookiePolicyLinkComponent,
+  onAnalyticsReady,
 }: CookieProps): JSX.Element {
   const classes = useStyles();
   const [isUserConsent, setUserConsent] = useState<boolean | null>(null);
@@ -110,6 +118,9 @@ export function CookieConsent({
           analytics.identify("user/" + userID, {
             entity_type: "user",
           });
+        }
+        if (onAnalyticsReady !== undefined) {
+          onAnalyticsReady(analytics);
         }
       });
     }
