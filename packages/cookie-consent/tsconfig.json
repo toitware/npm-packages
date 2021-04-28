@@ -6,6 +6,5 @@
     "rootDir": "./src",
     "resolveJsonModule": true,
     "lib": ["dom", "dom.iterable"],
-  },
-  "include": ["./src/**/*"]
+  }
 }

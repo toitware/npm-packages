@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.1
+
+### Features:
+
+- Added callback onAnalyticsReady
+
+### Bug fixes
+
+- Include the `window.analytics` type in the build.
+
 ## 0.1.0
 
 ### Breaking changes
