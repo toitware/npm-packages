@@ -1,5 +1,6 @@
 import { makeStyles, useTheme } from "@material-ui/core";
 import clsx from "clsx";
+import React from "react";
 import { useCodeMirror } from "use-codemirror";
 
 const useStyles = makeStyles((theme) => ({
