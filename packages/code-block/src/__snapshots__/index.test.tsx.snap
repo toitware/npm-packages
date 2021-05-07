@@ -10,14 +10,16 @@ exports[`properly sanitizes code 1`] = `
     >
       main:
 
-map ::= {
-  1234: "Siri",
-  2345: "John",
-  3456: "Sue"
-  }
+      map ::= {
+        1234: "Siri",
+        2345: "John",
+        3456: "Sue"
+        }
 
-map.do: | id name |
-  print "$name has ID $id"
+      map.do: | id name |
+        print "$name has ID $id"
+
+ 
     </pre>
   </div>
 </div>
