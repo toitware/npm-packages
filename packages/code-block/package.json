@@ -1,6 +1,6 @@
 {
   "name": "@toitware/code-block",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "A wrapper around CodeMirror that adds toit branding and additional functionality",
   "license": "UNLICENSED",
   "publishConfig": {

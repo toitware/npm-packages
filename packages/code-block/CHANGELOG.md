@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.3
+
+- If toit code is indented by two spaces, assume it is inside a top-level
+  function.
+- Don't strip whitespace in Toit code snippets.
+
 ## 0.1.2
 
 - Add toit syntax coloring support for slice syntax and byte array syntax.
