@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.1.3
+## 0.2.0
 
 - If toit code is indented by two spaces, assume it is inside a top-level
   function.
