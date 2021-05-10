@@ -1,8 +1,7 @@
 import { makeStyles, useTheme } from "@material-ui/core";
 import clsx from "clsx";
-import React, { useMemo } from "react";
+import React from "react";
 import { useCodeMirror } from "use-codemirror";
-import { removeExcessWhitespace } from "./whitespace";
 
 const useStyles = makeStyles((theme) => ({
   code: {
@@ -31,14 +30,13 @@ export function CodeBlock({
   mode = "toit",
   className,
 }: CodeBlockProps): JSX.Element {
-  const codeMemo = useMemo(() => removeExcessWhitespace(code), [code]);
   const classes = useStyles();
   const theme = useTheme();
 
   const codeMirrorTheme = theme.palette.type == "dark" ? "material" : "default";
 
   const codeMirror = useCodeMirror({
-    value: codeMemo,
+    value: code,
     importCodeMirrorAddons: () => {
       return Promise.all([
         import("./toit"),
@@ -62,7 +60,7 @@ export function CodeBlock({
         className={clsx(codeMirrorTheme, classes.loadingCode)}
         ref={codeMirror.ref}
       >
-        {codeMemo}
+        {code}
       </pre>
     </div>
   );
