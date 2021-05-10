@@ -20,6 +20,7 @@ exports[`properly sanitizes code 1`] = `
 
       map.do: | id name |
         print "$name has ID $id"
+
   
     
     </pre>
