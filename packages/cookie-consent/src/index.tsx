@@ -60,11 +60,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     top: -8,
     right: -8,
   },
-  cookieIcon: {
-    position: "absolute",
-    top: 11,
-    left: 11,
-  },
 }));
 
 let loadedAnalytics = false;
@@ -191,7 +186,6 @@ export function CookieConsent({
               <FiX />
             </IconButton>
             <div className={classes.cookieConsentTextContent}>
-              {cookieIcon}
               <Typography variant="h3">Change your cookie setting</Typography>
               <Typography>
                 We use cookies to register the traffic on our website. The main
@@ -236,7 +230,6 @@ export function CookieConsent({
               <FiX />
             </IconButton>
             <div className={classes.cookieConsentTextContent}>
-              {cookieIcon}
               <Typography>
                 We use cookies to collect data to improve your user experience.
                 By using our website, you&apos;re agreeing to our{" "}
