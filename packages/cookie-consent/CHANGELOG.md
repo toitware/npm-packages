@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.2
+
+### Design changes
+
+- the design now reflects the design of the new website design, despite the buttons. Will be fixed in the next release of the cookie consent.
+
 ## 0.1.1
 
 ### Features:
