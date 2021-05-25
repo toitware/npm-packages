@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.3
+
+### Big zIndex
+
+- zIndex has been set to a high number to insure that the cookie consent is displayed and not affected by other components in the view.
+
 ## 0.1.2
 
 ### Design changes
