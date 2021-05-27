@@ -54,6 +54,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     left: 0,
     width: "100%",
     padding: theme.spacing(4),
+    zIndex: 1000000,
   },
   exitButton: {
     position: "absolute",
