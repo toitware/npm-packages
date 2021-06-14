@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.4
+
+### React icons
+
+- Added react-icons to package.js as this was not the case before and therefore, the projects that used the cookie-consent had to have the package installed.
+
 ## 0.1.3
 
 ### Big zIndex
