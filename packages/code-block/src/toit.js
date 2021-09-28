@@ -1,8 +1,13 @@
-// CodeMirror, copyright (c) by Toitware ApS.
-// Distributed under an MIT license: https://codemirror.net/LICENSE
+// Copyright (C) 2021 Toitware ApS. All rights reserved.
+// Use of this source code is governed by an MIT-style license that can be
+// found in the LICENSE file.
 
 (function (mod) {
-  if (typeof exports == "object" && typeof module == "object") // CommonJS
+  if (typeof window === "undefined" || typeof window.navigator == 'undefined')
+    import("codemirror").then(mod);
+  else if ( typeof module == "object" && module.hot)
+    import("codemirror").then(mod);
+  else if (typeof exports == "object" && typeof module == "object") // CommonJS
     mod(require("codemirror"));
   else if (typeof define == "function" && define.amd) // AMD
     define(["codemirror"], mod);
