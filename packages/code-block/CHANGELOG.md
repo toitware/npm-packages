@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.0
+
+- Fix handling of member access (`o.foo`) which was reported as error.
+
 ## 0.2.0
 
 - If toit code is indented by two spaces, assume it is inside a top-level
