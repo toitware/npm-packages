@@ -13,8 +13,17 @@ import { FiX } from "react-icons/fi";
 import { SessionStorage } from "./sessionStorage";
 
 declare global {
+  interface Amplitude {
+    getInstance(): {
+      options: {
+        apiEndpoint: string;
+      }
+    }
+  }
+
   interface Window {
     analytics: SegmentAnalytics.AnalyticsJS;
+    amplitude: Amplitude;
   }
 }
 
@@ -75,6 +84,7 @@ interface CookieProps {
   show: boolean;
   changeConsent: boolean;
   customCookiePolicyLinkComponent?: JSX.Element;
+  amplitudeAPIEndpoint?: string;
   onAnalyticsReady?: (analytics: SegmentAnalytics.AnalyticsJS) => void;
 }
 
@@ -83,6 +93,7 @@ export function CookieConsent({
   show,
   changeConsent,
   customCookiePolicyLinkComponent,
+  amplitudeAPIEndpoint,
   onAnalyticsReady,
 }: CookieProps): JSX.Element {
   const classes = useStyles();
@@ -113,6 +124,12 @@ export function CookieConsent({
     window.location.reload();
   };
 
+  const setupAmplitudeAPIEnpoint = (apiEndpoint: string) => {
+    try {
+      window.amplitude.getInstance().options.apiEndpoint = apiEndpoint;
+    } catch(e) {}
+  };
+
   const handleAcceptCookie = () => {
     if ("analytics" in window && !loadedAnalytics) {
       // Setup segment
@@ -136,6 +153,10 @@ export function CookieConsent({
             entity_type: "user",
           });
         }
+        if (amplitudeAPIEndpoint) {
+          setupAmplitudeAPIEnpoint(amplitudeAPIEndpoint);
+        }
+
         if (onAnalyticsReady !== undefined) {
           onAnalyticsReady(analytics);
         }

@@ -10,6 +10,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
+    "watch": "tsc -b tsconfig.json -w",
     "build": "tsc -b tsconfig.build.json",
     "clean": "tsc -b tsconfig.build.json --clean",
     "lint": "eslint . --ext .js,.ts --ignore-path='../../.eslintignore'",
@@ -34,7 +35,6 @@
     "@types/segment-analytics": "^0.0.33",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-icons": "^4.1.0",
     "typescript": "^4.1.3"
   }
 }
