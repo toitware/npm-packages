@@ -1,6 +1,6 @@
 {
   "name": "@toitware/cookie-consent",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Toit cookie consent ",
   "license": "UNLICENSED",
   "publishConfig": {
