@@ -10,7 +10,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "cp src/*.css dist/ && tsc -b tsconfig.build.json",
+    "build": "mkdir -p dist/ && cp src/*.css dist/ && tsc -b tsconfig.build.json",
     "clean": "tsc -b tsconfig.build.json --clean",
     "lint": "eslint . --ext .js,.ts --ignore-path='../../.eslintignore'",
     "test": "jest --coverage",
