@@ -22,7 +22,6 @@ Here's a short summary of what you need to do:
 3. Add the token to your `~/.npmrc`:  
    `echo "//npm.pkg.github.com/:_authToken=YOUR_TOKEN" >> ~/.npmrc`
 
-
 Then run: `yarn install` from the root directory.
 
 ## How to start a new project
@@ -38,8 +37,6 @@ to adopt them accordingly. Most importantly:
 
 And then of course your code.
 
-**⚠️ You need to publish the project manually the first time. Once it's published, GitHub Actions will [automatically publish new versions](#publish-a-new-version).**
-
 ## Building
 
 Inside the package you're working on:
@@ -53,6 +50,9 @@ This will compile your TypeScript code to a publishable JavaScript module.
 This will build the files to `dist/` which is not checked in. The CI pipeline
 will build it by itself, and take care of testing and publishing.
 
+Checkout the [Publish a new version](#publish-a-new-version) section to see
+how you get your package published.
+
 ## Testing
 
 ### Using it in your project
@@ -62,6 +62,28 @@ project. The easiest way to develop them side by side, is to use [yarn
 link](https://classic.yarnpkg.com/en/docs/cli/link/) for that. Just make sure
 you're building your package, and consider using `yarn build --watch` so it
 stays up to date.
+
+> ⚠️ **WARNING**: Sometimes linked packages don't behave as intended.
+> Dependencies get duplicated (for example the @mui theme) and are not shared
+> properly. If you run into any issues, the only solution we have found so far
+> is to add the dependency as a local path dependency (with
+> `../path/to/package`) and upgrade the specific dependency every time you make
+> a change (with `yarn upgrade @toitware/code-block` for example)
+>
+> To add insult to injury, gatsby caches dependencies as well and if the version
+> didn't change you won't get updated code. So if you're using a local package
+> you need to run `gatsby clean` as well before restarting the server.
+>
+> So the full workflow looks like this:
+>
+> 1. Change the dependency to `"@toitware/code-block": "../path/to/npm-packages/packages/code-block"`
+> 2. `yarn upgrade @toitware/code-block`
+> 3. `gatsby clean && gatsby develop`
+> 4. Repeat the previous 2 steps until you've finished with the development,
+>    then change the dependency back to the version you're going to publish:
+>    `"@toitware/code-block": "^2.0.0"`
+> 5. Publish the packages first, then run `yarn upgrade @toitware/code-block`
+>    again, make sure everything still works, and you're done.
 
 ### Running tests
 
@@ -91,3 +113,12 @@ Make sure the new snapshot is correct before checking it in!
 
 Publish a new version by increasing the version in your `package.json` and merge
 it into master (through a PR).
+
+### New package
+
+> **⚠️ You need to publish the project manually the first time. Once it's
+> published, you only need to increase the version and GitHub Actions will take
+> care of it.**
+
+Make sure you add your package to the workflow matrix in
+`.github/workflows/node.js.yaml`.

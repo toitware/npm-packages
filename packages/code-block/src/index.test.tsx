@@ -5,9 +5,7 @@ import { CodeBlock } from ".";
 jest.mock("use-codemirror");
 
 test("properly sanitizes code", () => {
-  const result = render(
-    <CodeBlock
-      code={`
+  const code = `
 
       main:
 
@@ -21,8 +19,8 @@ test("properly sanitizes code", () => {
         print "$name has ID $id"
 
   
-    `}
-    />
-  );
-  expect(result.container).toMatchSnapshot();
+    `;
+  const result = render(<CodeBlock code={code} />);
+
+  expect(result.getByTestId("code-container").textContent).toBe(code);
 });

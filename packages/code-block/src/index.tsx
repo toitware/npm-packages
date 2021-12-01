@@ -1,23 +1,21 @@
-import { makeStyles, useTheme } from "@material-ui/core";
-import clsx from "clsx";
+import { styled } from "@mui/material";
 import React from "react";
 import { useCodeMirror } from "use-codemirror";
 
-const useStyles = makeStyles((theme) => ({
-  code: {
-    "& .CodeMirror": {
-      height: "auto",
-    },
-    "& .CodeMirror-lines": {
-      padding: theme.spacing(3),
-    },
-  },
-  loadingCode: {
-    position: "relative",
-    display: "block",
-    padding: theme.spacing(3),
-  },
-}));
+const Wrapper = styled("div")`
+  & .CodeMirror {
+    height: auto;
+  }
+  & .CodeMirror-lines {
+    padding: ${({ theme }) => theme.spacing(3)};
+  }
+`;
+
+const Code = styled("pre")`
+  position: relative;
+  display: block;
+  padding: ${({ theme }) => theme.spacing(3)};
+`;
 
 interface CodeBlockProps {
   code: string;
@@ -30,10 +28,7 @@ export function CodeBlock({
   mode = "toit",
   className,
 }: CodeBlockProps): JSX.Element {
-  const classes = useStyles();
-  const theme = useTheme();
-
-  const codeMirrorTheme = theme.palette.type == "dark" ? "material" : "default";
+  const codeMirrorTheme = "vars";
 
   const codeMirror = useCodeMirror({
     value: code,
@@ -55,14 +50,15 @@ export function CodeBlock({
   });
 
   return (
-    <div className={clsx(className, classes.code)}>
-      <pre
-        className={clsx(codeMirrorTheme, classes.loadingCode)}
+    <Wrapper className={className}>
+      <Code
+        className={codeMirrorTheme}
         ref={codeMirror.ref}
+        data-testid="code-container"
       >
         {code}
-      </pre>
-    </div>
+      </Code>
+    </Wrapper>
   );
 }
 

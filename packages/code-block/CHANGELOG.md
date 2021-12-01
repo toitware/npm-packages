@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.4.0
+
+- Switch to @mui v5
+- Use `codemirror-theme-vars` in order to use CSS vars to switch between dark
+  and light mode.
+
 ## 0.3.0
 
 - Fix handling of member access (`o.foo`) which was reported as error.
