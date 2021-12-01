@@ -64,7 +64,7 @@ you're building your package, and consider using `yarn build --watch` so it
 stays up to date.
 
 > ⚠️ **WARNING**: Sometimes linked packages don't behave as intended.
-> Dependencies get duplicated (for example the @mui theme) and not shared
+> Dependencies get duplicated (for example the @mui theme) and are not shared
 > properly. If you run into any issues, the only solution we have found so far
 > is to add the dependency as a local path dependency (with
 > `../path/to/package`) and upgrade the specific dependency every time you make
