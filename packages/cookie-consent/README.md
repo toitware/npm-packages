@@ -2,6 +2,10 @@
 
 This is a cookie consent that fits the current needs of Toits tracking profile.
 
+> **WARNING**: Starting with `v0.2.0` this package depends on `@mui` version 5.
+> If you are still using the old `@material-ui` package, then make sure to use
+> `v0.1.*`.
+
 ## Install
 
 First install this library and segment-analytics too.
