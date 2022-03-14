@@ -3,6 +3,8 @@
 // found in the LICENSE file.
 
 (function (mod) {
+  if (typeof CodeMirror !== "undefined")  // Just use the variable if it already exits.
+    mod(CodeMirror);
   if (typeof window === "undefined" || typeof window.navigator == 'undefined')
     import("codemirror").then(mod);
   else if ( typeof module == "object" && module.hot)
@@ -398,11 +400,24 @@
       return null;
     }
 
-    function tryIdentifier(stream, state) {
+    function tryPostfixMemberOrIdentifier(stream, state) {
+      return tryIdentifier(stream, state, true);
+    }
+
+    function tryIdentifier(stream, state, allowPrefixedDot) {
+      // If we allow a prefixed dot, consume it (but put it back if
+      // it's not followed by an identifier).
+      if (allowPrefixedDot && stream.match(".")) {
+        if (!stream.match(IDENTIFIER, false)) {
+          stream.backUp(1);
+          return null;
+        }
+        return "dot";
+      }
       if (!stream.match(IDENTIFIER)) return null;
       var id = stream.current();
       if (isKeyword(id)) return "keyword";
-      if (isSpecialVar(id)) return "special_var"
+      if (isSpecialVar(id)) return "special_var";
       if (isAtom(id)) return "atom";
       if (id.match(CONSTANT_HEURISTIC)) {
         return "constant";
@@ -913,6 +928,10 @@
         tryOperator(stream, state) ||
         tryString(stream, state) ||
         tryIsAs(stream, state) ||
+        // In theory we need to check whether the postfix member is
+        // prefixed by another expression but for the syntax highlighter we
+        // just assume that was the case.
+        tryPostfixMemberOrIdentifier(stream, state) ||
         tryIdentifier(stream, state) ||
         tryPrimitive(stream, state) ||
         tryDelimited(stream, state) ||
