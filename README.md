@@ -1,6 +1,6 @@
 # Toit NPM Packages
 
-This repository is the home of all private toit npm packages.
+This repository is the home of all toit's npm packages.
 
 When a new commit is made in `main`, all packages are tested and built, and if a
 `package.json` has a newer version than what is in our
