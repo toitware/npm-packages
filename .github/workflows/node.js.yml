@@ -57,7 +57,7 @@ jobs:
 
       # Ideally all of the following code is handled by a GitHub action, but
       # unfortunately the npm-publish action has issues when tagging the release.
-      - run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.NPM_LEON_ACCESS_TOKEN }}" >> ~/.npmrc
+      - run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_LEON_ACCESS_TOKEN }}" >> ~/.npmrc
       - uses: flood-io/is-published-on-npm@v1
         id: is-published
         with:
