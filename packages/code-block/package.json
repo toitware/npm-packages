@@ -1,11 +1,8 @@
 {
-  "name": "@toitware/code-block",
-  "version": "0.4.2",
+  "name": "@toit/code-block",
+  "version": "0.4.3",
   "description": "A wrapper around CodeMirror that adds toit branding and additional functionality",
-  "license": "UNLICENSED",
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
-  },
+  "license": "MIT",
   "repository": "https://github.com/toitware/npm-packages",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

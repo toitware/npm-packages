@@ -22,7 +22,7 @@ for all options.
 First install this library and codemirror itself too.
 
 ```shell
-yarn add @toitware/code-block
+yarn add @toit/code-block
 ```
 
 Once it's installed you need to import the CSS for codemirror and its themes.
@@ -33,7 +33,7 @@ platforms).
 If it's in a gatsby project, simply put this import in `gatsby-browser.js`:
 
 ```js
-import "@toitware/code-block/dist/styles.js";
+import "@toit/code-block/dist/styles.js";
 ```
 
 Otherwise import it wherever you import static assets.

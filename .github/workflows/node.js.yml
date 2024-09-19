@@ -4,7 +4,7 @@
 name: Node.js CI
 
 env:
-  NODE_VERSION: 15.x
+  NODE_VERSION: 20.x
 
 on:
   push:
@@ -12,6 +12,12 @@ on:
   pull_request:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      publish:
+        description: 'Publish the package to npm'
+        required: true
+        type: boolean
+        default: false
 
 jobs:
   test:
@@ -30,11 +36,13 @@ jobs:
     runs-on: ubuntu-latest
 
     needs: [test]
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' || github.event.inputs.publish == 'true'
 
     strategy:
       matrix:
-        package: [testing-utils, code-block, cookie-consent]
+        # TODO(florian): either remove the remaining packages or handle them.
+        # package: [testing-utils, code-block, cookie-consent]
+        package: [code-block]
 
     steps:
       - uses: actions/checkout@v4
@@ -49,7 +57,7 @@ jobs:
 
       # Ideally all of the following code is handled by a GitHub action, but
       # unfortunately the npm-publish action has issues when tagging the release.
-      - run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> ~/.npmrc
+      - run: echo "https://registry.npmjs.org/:_authToken=${{ secrets.NPM_LEON_ACCESS_TOKEN }}" >> ~/.npmrc
       - uses: flood-io/is-published-on-npm@v1
         id: is-published
         with:
@@ -57,5 +65,5 @@ jobs:
 
       - name: Publish new version if versions differ
         if: ${{ steps.is-published.outputs.published == 'false' }}
-        run: yarn publish --access restricted
+        run: yarn publish --access public
         working-directory: packages/${{ matrix.package }}
